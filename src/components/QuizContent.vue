@@ -1,6 +1,11 @@
 <script setup>
 import { defineProps } from 'vue';
 const { question } = defineProps(['question']);
+
+const emit = defineEmits(['selectOption']);
+function emitSelectedOption(option) {
+    emit('selectOption', option);
+}
 </script>
 
 <template>
@@ -8,7 +13,7 @@ const { question } = defineProps(['question']);
         <h1 class="question-title">{{ question.text }}</h1>
     </section>
     <section id="option-container">
-        <div class="option" v-for="option in question.answers" :key="option.id">
+        <div class="option" v-for="option in question.answers" :key="option.id" @click="emitSelectedOption(option)">
             <p class="option-label">{{ option.label }}</p>
             <p class="option-value">{{ option.text }}</p>
         </div>
